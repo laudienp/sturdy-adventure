@@ -1875,7 +1875,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 06f5335940deb564db05e17253f232ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2146,6 +2146,8 @@ MonoBehaviour:
   gravity: -9.81
   jumpHeight: 2
   grounded: 0
+  mouseSpeed: 0
+  head: {fileID: 1209989398}
 --- !u!1001 &1992680779
 PrefabInstance:
   m_ObjectHideFlags: 0
