@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 0.1f;
     public float gravity = -9.81f;
+    public float gravityMultiplier = 2.5f;
     public float jumpHeight = 2;
     public bool grounded;
 
@@ -45,11 +46,11 @@ public class PlayerController : MonoBehaviour
 
 
         //dep
-        yvel += Time.deltaTime * gravity;
+        yvel += Time.deltaTime * gravity * gravityMultiplier;
 
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            yvel = Mathf.Sqrt(-2 * gravity * jumpHeight);
+            yvel = Mathf.Sqrt(-2 * gravity * jumpHeight * gravityMultiplier);
             grounded = false;
         }
             

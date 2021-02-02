@@ -2144,6 +2144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   gravity: -9.81
+  mass: 2.5
   jumpHeight: 2
   grounded: 0
   mouseSpeed: 1
