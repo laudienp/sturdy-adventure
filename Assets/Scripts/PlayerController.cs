@@ -8,7 +8,15 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2;
     public bool grounded;
+
+    public float mouseSpeed;
+
+    public Transform head;
+
     private CharacterController controller;
+
+    private float xview;
+    private float yview;
 
     private float yvel = 0;
 
@@ -24,6 +32,19 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
+        float mx = Input.GetAxis("Mouse X");
+        float my = Input.GetAxis("Mouse Y");
+
+
+        //cam
+        xview += mx * mouseSpeed;
+        yview -= my * mouseSpeed;
+        yview = Mathf.Clamp(yview, -90, 90);
+        transform.eulerAngles = new Vector3(0, xview, 0);
+        head.localEulerAngles = new Vector3(yview, 0, 0);
+
+
+        //dep
         yvel += Time.deltaTime * gravity;
 
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
@@ -33,7 +54,7 @@ public class PlayerController : MonoBehaviour
         }
             
 
-        Vector3 movement = new Vector3(x, 0, y);
+        Vector3 movement = transform.right * x + transform.forward * y;
         Vector3 velocity = movement * speed + Vector3.up * yvel;
 
         controller.Move(velocity * Time.deltaTime);
