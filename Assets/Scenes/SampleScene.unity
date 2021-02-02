@@ -2146,7 +2146,7 @@ MonoBehaviour:
   gravity: -9.81
   jumpHeight: 2
   grounded: 0
-  mouseSpeed: 0
+  mouseSpeed: 1
   head: {fileID: 1209989398}
 --- !u!1001 &1992680779
 PrefabInstance:
