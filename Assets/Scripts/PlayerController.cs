@@ -23,10 +23,14 @@ public class PlayerController : MonoBehaviour
 
     private float yvel = 0;
 
+    Health health;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        health = GetComponent<Health>();
+        health.onDie += Respawn;
     }
 
     // Update is called once per frame
@@ -70,5 +74,14 @@ public class PlayerController : MonoBehaviour
 
         //shoot
             
+    }
+
+
+    void Respawn()
+    {
+        controller.enabled = false;
+        transform.position = Vector3.zero;
+        controller.enabled = true;
+        health.Full();
     }
 }

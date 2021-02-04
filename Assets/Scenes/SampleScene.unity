@@ -2008,6 +2008,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3943fc59313837843b4a51972e49745c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 40
+  attackSpeed: 1
+  explosion: {fileID: 5036080143059581791, guid: f7f9ad6d87b176644ad8f8e7566eeadf,
+    type: 3}
 --- !u!114 &1382581776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2022,8 +2026,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 100
-  explosion: {fileID: 5036080143059581791, guid: f7f9ad6d87b176644ad8f8e7566eeadf,
-    type: 3}
 --- !u!1 &1421094918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2784,7 @@ GameObject:
   - component: {fileID: 1963871797}
   - component: {fileID: 1963871799}
   - component: {fileID: 1963871798}
+  - component: {fileID: 1963871800}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2844,6 +2847,20 @@ MonoBehaviour:
   grounded: 0
   mouseSpeed: 1
   head: {fileID: 1209989398}
+--- !u!114 &1963871800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963871796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b9efaa856334b4a99cf7579c80d31c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  health: 100
 --- !u!1001 &1992680779
 PrefabInstance:
   m_ObjectHideFlags: 0

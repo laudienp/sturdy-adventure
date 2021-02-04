@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
@@ -8,9 +9,10 @@ public class Health : MonoBehaviour
 
     public float health;
 
-    public GameObject explosion;
+    public UnityAction onDie;
 
-    // Start is called before the first frame update
+
+
     void Start()
     {
         health = maxHealth;
@@ -22,15 +24,14 @@ public class Health : MonoBehaviour
 
         if (health <= 0)
         {
-            Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            if(onDie != null)
+                onDie.Invoke();
         }
             
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Full()
     {
-        
+        health = maxHealth;
     }
 }
