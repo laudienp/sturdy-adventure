@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
             yvel = 0;
             grounded = true;
         }
+
+        //shoot
             
     }
 }
