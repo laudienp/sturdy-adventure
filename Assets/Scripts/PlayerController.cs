@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 0.1f;
+    public float walkSpeed = 6f;
+    public float runSpeed = 10f;
+    public float actualSpeed;
     public float gravity = -9.81f;
     public float gravityMultiplier = 2.5f;
     public float jumpHeight = 2;
@@ -36,7 +38,6 @@ public class PlayerController : MonoBehaviour
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
 
-
         //cam
         xview += mx * mouseSpeed;
         yview -= my * mouseSpeed;
@@ -44,19 +45,20 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles = new Vector3(0, xview, 0);
         head.localEulerAngles = new Vector3(yview, 0, 0);
 
-
         //dep
         yvel += Time.deltaTime * gravity * gravityMultiplier;
 
-        if(Input.GetKeyDown(KeyCode.Space) && grounded)
+        if((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.RightControl)) && grounded)
         {
             yvel = Mathf.Sqrt(-2 * gravity * jumpHeight * gravityMultiplier);
             grounded = false;
         }
-            
+
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) actualSpeed = runSpeed;
+        else actualSpeed = walkSpeed;
 
         Vector3 movement = transform.right * x + transform.forward * y;
-        Vector3 velocity = movement * speed + Vector3.up * yvel;
+        Vector3 velocity = movement * actualSpeed + Vector3.up * yvel;
 
         controller.Move(velocity * Time.deltaTime);
 
