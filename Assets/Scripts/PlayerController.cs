@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
         health.onDie += Respawn;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame

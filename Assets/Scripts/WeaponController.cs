@@ -23,6 +23,7 @@ public class WeaponController : MonoBehaviour
         if(Input.GetMouseButton(0) && lastShot < Time.time)
         {
             Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.LookRotation(projectileSpawnPoint.forward));
+            //faire un raycast
             lastShot = Time.time + firerate;
         }
     }

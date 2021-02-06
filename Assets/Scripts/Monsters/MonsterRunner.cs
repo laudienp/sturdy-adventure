@@ -9,6 +9,7 @@ public class MonsterRunner : MonoBehaviour
     public float attackSpeed = 1;
 
     public GameObject explosion;
+    public GameObject blood;
 
     private GameObject player;
 
@@ -33,6 +34,7 @@ public class MonsterRunner : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
 
         health.onDie += Die;
+        health.onHit += Hit;
     }
 
     // Update is called once per frame
@@ -56,5 +58,10 @@ public class MonsterRunner : MonoBehaviour
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    void Hit()
+    {
+        Instantiate(blood, transform.position +Vector3.up, Quaternion.identity);
     }
 }

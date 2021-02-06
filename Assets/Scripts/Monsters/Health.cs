@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
     public float health;
 
     public UnityAction onDie;
+    public UnityAction onHit;
 
 
 
@@ -21,6 +22,9 @@ public class Health : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         health -= dmg;
+
+        if (onHit != null)
+            onHit.Invoke();
 
         if (health <= 0)
         {
