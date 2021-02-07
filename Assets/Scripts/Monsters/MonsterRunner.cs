@@ -11,6 +11,8 @@ public class MonsterRunner : MonoBehaviour
     public GameObject explosion;
     public GameObject blood;
 
+    public GameObject hitbox;
+
     private GameObject player;
 
     private NavMeshAgent agent;
@@ -57,7 +59,11 @@ public class MonsterRunner : MonoBehaviour
     void Die()
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        animator.SetTrigger("Die");
+        hitbox.SetActive(false);
+        agent.isStopped = true;
+        enabled = false;
+        //Destroy(gameObject);
     }
 
     void Hit()
