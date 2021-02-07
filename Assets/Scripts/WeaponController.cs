@@ -67,4 +67,9 @@ public class WeaponController : MonoBehaviour
             ammo = 10;
         }
     }
+
+    public void Ammo(int ammo)
+    {
+        this.ammo += ammo;
+    }
 }
