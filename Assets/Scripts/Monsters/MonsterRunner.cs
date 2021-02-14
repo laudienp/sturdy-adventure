@@ -63,7 +63,7 @@ public class MonsterRunner : MonoBehaviour
         hitbox.SetActive(false);
         agent.isStopped = true;
         enabled = false;
-        //Destroy(gameObject);
+        Destroy(gameObject, 10);
     }
 
     void Hit()
