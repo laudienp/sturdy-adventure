@@ -13,6 +13,8 @@ public class MonsterRunner : MonoBehaviour
 
     public GameObject hitbox;
 
+    public bool chasePlayer = true;
+
     private GameObject player;
 
     private NavMeshAgent agent;
@@ -42,7 +44,8 @@ public class MonsterRunner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player.transform.position);
+        if(chasePlayer)
+            agent.SetDestination(player.transform.position);
 
         animator.SetFloat("Speed", 1f);
 
