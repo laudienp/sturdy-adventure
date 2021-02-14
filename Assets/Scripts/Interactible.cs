@@ -7,13 +7,13 @@ public class Interactible : MonoBehaviour
 {
     public string interactionMessage = "activer l'interrupteur";
     public bool debug;
-
-    public UnityAction OnInteract;
+    
+    public UnityEvent OnInteract;
 
     private void Start()
     {
         if (debug)
-            OnInteract += InteractionDebug;
+            OnInteract.AddListener(InteractionDebug);
     }
 
     void InteractionDebug()

@@ -5,33 +5,27 @@ using UnityEngine;
 public class Assault : MonoBehaviour
 {
     public GameObject mob;
-
     public Transform[] spawnpoints;
 
     public int waveSize = 1;
-
     public int waveCount = 1;
 
 
     private bool started;
-
     private int mobcount;
 
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartAssault()
     {
-        
+        if (started)
+            return;
+
+        StartCoroutine("AssaultRoutine");
+        started = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public IEnumerator StartAssault()
+    public IEnumerator AssaultRoutine()
     {
         for(int c = 0; c < waveCount; c++)
         {
@@ -58,15 +52,6 @@ public class Assault : MonoBehaviour
     private Transform GetRandomSpawnpoint()
     {
         return spawnpoints[Random.Range(0, spawnpoints.Length)];
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player") && !started)
-        {
-            StartCoroutine("StartAssault");
-            started = true;
-        }
     }
 
     void OnMobDie()
