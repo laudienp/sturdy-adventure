@@ -183,6 +183,8 @@ MonoBehaviour:
   blood: {fileID: 3900263233531629664, guid: 8419505f9e2081a4390a15e33b2755aa, type: 3}
   hitbox: {fileID: 4430363964982039286}
   chasePlayer: 1
+  deathSound: {fileID: 828660086172780485, guid: 01e78b62d61b6b443b2a1b20456a25db,
+    type: 3}
 --- !u!114 &4430363965210273143
 MonoBehaviour:
   m_ObjectHideFlags: 0

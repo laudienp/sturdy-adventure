@@ -15,6 +15,8 @@ public class MonsterRunner : MonoBehaviour
 
     public bool chasePlayer = true;
 
+    public GameObject deathSound;
+
     private GameObject player;
 
     private NavMeshAgent agent;
@@ -62,6 +64,8 @@ public class MonsterRunner : MonoBehaviour
     void Die()
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
+        GameObject s = Instantiate(deathSound, transform.position, Quaternion.identity);
+        Destroy(s, 5);
         animator.SetTrigger("Die");
         hitbox.SetActive(false);
         agent.isStopped = true;
