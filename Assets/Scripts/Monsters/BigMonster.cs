@@ -56,6 +56,10 @@ public class BigMonster : MonoBehaviour
             if (compteur == 5) compteur = 0;
             agent.SetDestination(checkpoints[compteur].position);
         }
+        else
+        {
+            agent.SetDestination(checkpoints[compteur].position);
+        }
         
 
         if (Vector3.Distance(transform.position, player.transform.position) < agent.stoppingDistance + 0.5f
