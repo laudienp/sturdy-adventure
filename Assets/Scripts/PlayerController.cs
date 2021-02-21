@@ -87,4 +87,12 @@ public class PlayerController : MonoBehaviour
         controller.enabled = true;
         health.Full();
     }
+
+    public void TeleportTo(Transform position)
+    {
+        controller.enabled = false;
+        transform.position = position.position;
+        xview = position.rotation.eulerAngles.y; // rotate player to spawn forward
+        controller.enabled = true;
+    }
 }
