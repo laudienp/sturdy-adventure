@@ -13,9 +13,13 @@ public class WeaponController : MonoBehaviour
 
     public GameObject hitWallEffect;
 
+    public Animator anim;
+
     float lastShot;
 
     public float ammo;
+
+    public bool reloading;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +30,7 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0) && lastShot < Time.time)
+        if(Input.GetMouseButton(0) && lastShot < Time.time && !reloading)
         {
             //Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.LookRotation(projectileSpawnPoint.forward));
             //faire un raycast
@@ -43,6 +47,8 @@ public class WeaponController : MonoBehaviour
                     {
                         Instantiate(hitWallEffect, hit.point, Quaternion.LookRotation(hit.normal));
                     }
+
+                    anim.SetTrigger("Shoot");
                 }
 
                 //sound
@@ -64,12 +70,20 @@ public class WeaponController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.R))
         {
-            ammo = 10;
+            anim.SetTrigger("Reload");
+            reloading = true;
+            
         }
     }
 
     public void Ammo(int ammo)
     {
         this.ammo += ammo;
+    }
+
+    public void OnEndReload()
+    {
+        reloading = false;
+        ammo = 10;
     }
 }
