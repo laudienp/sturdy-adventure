@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 40
-  attackSpeed: 1
+  attackSpeed: 2
   explosion: {fileID: 5036080143059581791, guid: f7f9ad6d87b176644ad8f8e7566eeadf,
     type: 3}
   blood: {fileID: 3900263233531629664, guid: 8419505f9e2081a4390a15e33b2755aa, type: 3}
