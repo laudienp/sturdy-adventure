@@ -7842,7 +7842,7 @@ PrefabInstance:
     - target: {fileID: 5756647169799927129, guid: 39aa11f2610a49545a479897c663cbbe,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5756647169799927129, guid: 39aa11f2610a49545a479897c663cbbe,
         type: 3}
@@ -10629,7 +10629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDamage: 20
-  firerate: 0.5
+  firerate: 0.4
   ammoPerCharger: 10
   projectilePrefab: {fileID: 6222825149775740080, guid: c28a85f357cb029438bc84b452af27d0,
     type: 3}
@@ -15017,6 +15017,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mur1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430363965210273129, guid: 18f3590e64f6c3f4f8f22dfb0a5f5b05,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4430363965210273131, guid: 18f3590e64f6c3f4f8f22dfb0a5f5b05,
         type: 3}
@@ -22904,6 +22909,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 117087508}
   - {fileID: 1137928182}
+  swapDelay: 0.5
   selectedWeapon: 0
 --- !u!1 &1977538637
 GameObject:

@@ -29,6 +29,9 @@ public class WeaponManager : MonoBehaviour
 
     private void SwapWeapon(int selection)
     {
+        if (selectedWeapon == selection) // the weapon is already selected
+            return;
+
         weapons[selectedWeapon].SetActive(false);
         selectedWeapon = selection;
         weapons[selectedWeapon].SetActive(true);
