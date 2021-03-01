@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    public float bulletDamage = 20f;
     public float firerate = 0.5f;
     public int ammoPerCharger = 10;
     public GameObject projectilePrefab;
@@ -45,14 +46,14 @@ public class WeaponController : MonoBehaviour
                 if (Physics.Raycast(center, out RaycastHit hit, 1000))
                 {
                     if (hit.collider.tag.Equals("Monster"))
-                        hit.collider.GetComponent<Damagable>().TakeDamage(20);
+                        hit.collider.GetComponent<Damagable>().TakeDamage(bulletDamage);
                     else //hit a wall
                     {
                         Instantiate(hitWallEffect, hit.point, Quaternion.LookRotation(hit.normal));
                     }
-
-                    anim.SetTrigger("Shoot");
                 }
+
+                anim.SetTrigger("Shoot");
 
                 //sound
                 GameObject g = Instantiate(shotSound, transform.position, Quaternion.identity);
