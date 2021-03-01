@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public float firerate = 0.5f;
+    public int ammoPerCharger = 10;
     public GameObject projectilePrefab;
     public Transform projectileSpawnPoint;
 
@@ -14,10 +15,12 @@ public class WeaponController : MonoBehaviour
     public GameObject hitWallEffect;
 
     public Animator anim;
+    public PlayerHUD hud;
 
     float lastShot;
 
-    public float ammo;
+    public int currentCharger;
+    public int ammo;
 
     public bool reloading;
 
@@ -35,7 +38,7 @@ public class WeaponController : MonoBehaviour
             //Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.LookRotation(projectileSpawnPoint.forward));
             //faire un raycast
 
-            if(ammo > 0)
+            if(currentCharger > 0)
             {
                 Ray center = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
 
@@ -55,7 +58,9 @@ public class WeaponController : MonoBehaviour
                 GameObject g = Instantiate(shotSound, transform.position, Quaternion.identity);
                 Destroy(g, 5);
 
-                ammo--;
+                currentCharger--;
+
+                UpdateHUD();
             }
             else
             {
@@ -68,7 +73,7 @@ public class WeaponController : MonoBehaviour
             lastShot = Time.time + firerate;
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R) && ammo > 0 && currentCharger != ammoPerCharger)
         {
             anim.SetTrigger("Reload");
             reloading = true;
@@ -79,11 +84,34 @@ public class WeaponController : MonoBehaviour
     public void Ammo(int ammo)
     {
         this.ammo += ammo;
+
+        UpdateHUD();
     }
 
     public void OnEndReload()
     {
         reloading = false;
-        ammo = 10;
+        int ammoReloaded;
+
+        if (ammo >= ammoPerCharger)
+        {
+            ammoReloaded = ammoPerCharger;
+            ammo -= ammoPerCharger;
+        }
+        else
+        {
+            ammoReloaded = ammo;
+            ammo = 0;
+        }
+
+        currentCharger = ammoReloaded;
+
+        UpdateHUD();
+    }
+
+    private void UpdateHUD()
+    {
+        if (hud != null)
+            hud.UpdateAmmo(currentCharger, ammo);
     }
 }

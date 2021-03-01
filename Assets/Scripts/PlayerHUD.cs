@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerHUD : MonoBehaviour
 {
     public Text healthText;
+    public Text ammoText;
 
     public Health playerHealth;
 
@@ -30,5 +31,10 @@ public class PlayerHUD : MonoBehaviour
     void ResetHealth()
     {
         healthText.text = "HP : " + playerHealth.maxHealth;
+    }
+
+    public void UpdateAmmo(int curr, int max)
+    {
+        ammoText.text = "Ammo : " + curr + " / " + max;
     }
 }
