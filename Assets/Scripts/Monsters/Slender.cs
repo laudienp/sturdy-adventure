@@ -17,6 +17,7 @@ public class Slender : MonoBehaviour
 
     Animator anim;
     NavMeshAgent agent;
+    Health player;
 
     bool chase;
 
@@ -30,6 +31,7 @@ public class Slender : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
         chase = false;
     }
@@ -92,5 +94,13 @@ public class Slender : MonoBehaviour
         anim.SetLookAtWeight(1f, 0.2f, 0.8f, 0.9f);
         if (target != null)
             anim.SetLookAtPosition(target.position);
+    }
+
+    public void AttackAnimationEvent()
+    {
+        float dst = Vector3.Distance(transform.position, player.transform.position);
+
+        if (dst < 2f)
+            player.TakeDamage(100);
     }
 }

@@ -16,9 +16,9 @@ public class PlayerController : MonoBehaviour
 
     public Transform head;
 
-    public GameObject colliders;
-
     private CharacterController controller;
+
+    private GameCheckpoint lastCheckpoint;
 
     private float xview;
     private float yview;
@@ -87,8 +87,6 @@ public class PlayerController : MonoBehaviour
     {
         freezeControl = true;
 
-        colliders.SetActive(false);
-
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -96,15 +94,28 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         controller.enabled = false;
-        transform.position = Vector3.zero;
+
+        if (lastCheckpoint)
+            transform.position = lastCheckpoint.transform.position;
+        else
+            transform.position = Vector3.zero;
+
         controller.enabled = true;
         health.Full();
         freezeControl = false;
 
-        colliders.SetActive(true);
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void SetRespawn(GameCheckpoint cp) // faire une notif sur l'UI
+    {
+        if (lastCheckpoint != cp)
+        {
+            lastCheckpoint = cp;
+            Debug.Log("Checkpoint...");
+        }
+            
     }
 
     public void TeleportTo(Transform position)
