@@ -13,8 +13,10 @@ public class Guard : MonoBehaviour
     public float visionDistance = 10f;
     public float timeToDetectPlayer = 2f;
 
+
     private Health health;
     private NavMeshAgent agent;
+    private Animator anim;
     private float waitTimer;
 
     private bool waiting;
@@ -29,10 +31,16 @@ public class Guard : MonoBehaviour
 
     public bool playerDetected;
 
+    public float currentVelocity;
+    private Vector3 prevPos;
+
+    private float shootTimer;
+
     void Start()
     {
         health = GetComponent<Health>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
 
         player = GameObject.FindWithTag("Player").transform;
 
@@ -53,11 +61,14 @@ public class Guard : MonoBehaviour
 
             waitTimer = Time.time + waitTime;
             waiting = false;
+            //anim.SetFloat("Speed", 1f);
         }
         else if (waiting == false && Time.time > waitTimer && agent.remainingDistance <= agent.stoppingDistance)
         {
             waiting = true;
             waitTimer = Time.time + waitTime;
+
+            //anim.SetFloat("Speed", 0f);
         }
 
 
@@ -87,16 +98,31 @@ public class Guard : MonoBehaviour
         else
             visibleDuration = 0;
 
-        if (visibleDuration > timeToDetectPlayer)
-            playerDetected = true;
-
-
-        if(playerDetected)
+        if (!playerDetected && visibleDuration > timeToDetectPlayer)
         {
-            player.GetComponent<Health>().TakeDamage(100);
+            playerDetected = true;
+            anim.SetBool("PlayerDetected", true);
+            shootTimer = Time.time + 1f;
+
+            agent.isStopped = true;
+        }
+            
+
+
+        if(playerDetected && Time.time > shootTimer)
+        {
+            anim.SetTrigger("Shoot");
+
+            shootTimer = Time.time + 1f;
+            player.GetComponent<Health>().TakeDamage(100); //one shot for the moment
             playerDetected = false;
         }
 
+        Vector3 currentMove = transform.position - prevPos;
+        currentVelocity = currentMove.magnitude / Time.deltaTime;
+        prevPos = transform.position;
+
+        anim.SetFloat("Speed", currentVelocity);
     }
 
     void Die()
