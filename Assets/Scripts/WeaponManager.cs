@@ -24,6 +24,14 @@ public class WeaponManager : MonoBehaviour
                 SwapWeapon(0);
             else if (Input.GetKeyDown(KeyCode.Alpha2))
                 SwapWeapon(1);
+
+
+            //with scrollwheel
+            float scroll = Input.mouseScrollDelta.y;
+            if(scroll > 0 && selectedWeapon < weapons.Length-1)
+                SwapWeapon(selectedWeapon+1);
+            else if(scroll < 0 && selectedWeapon > 0)
+                SwapWeapon(selectedWeapon-1);
         }
     }
 
