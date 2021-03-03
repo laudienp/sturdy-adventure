@@ -8,9 +8,12 @@ public class Health : MonoBehaviour
     public float maxHealth;
 
     public float health;
+    public bool isDead;
 
     public UnityAction onDie;
     public UnityAction onHit;
+
+
 
 
 
@@ -28,6 +31,9 @@ public class Health : MonoBehaviour
 
         if (health <= 0)
         {
+            isDead = true;
+            health = 0;
+
             if(onDie != null)
                 onDie.Invoke();
         }
@@ -37,5 +43,6 @@ public class Health : MonoBehaviour
     public void Full()
     {
         health = maxHealth;
+        isDead = false;
     }
 }

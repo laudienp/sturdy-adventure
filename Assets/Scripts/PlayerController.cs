@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform head;
 
+    public GameObject colliders;
+
     private CharacterController controller;
 
     private float xview;
@@ -25,12 +27,14 @@ public class PlayerController : MonoBehaviour
 
     Health health;
 
+    private bool freezeControl;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
-        health.onDie += Respawn;
+        health.onDie += Die;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -39,6 +43,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (freezeControl)
+            return;
+
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -74,18 +81,30 @@ public class PlayerController : MonoBehaviour
             yvel = 0;
             grounded = true;
         }
-
-        //shoot
-            
     }
 
+    void Die()
+    {
+        freezeControl = true;
 
-    void Respawn()
+        colliders.SetActive(false);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void Respawn()
     {
         controller.enabled = false;
         transform.position = Vector3.zero;
         controller.enabled = true;
         health.Full();
+        freezeControl = false;
+
+        colliders.SetActive(true);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void TeleportTo(Transform position)

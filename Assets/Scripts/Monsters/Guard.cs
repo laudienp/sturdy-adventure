@@ -13,6 +13,8 @@ public class Guard : MonoBehaviour
     public float visionDistance = 10f;
     public float timeToDetectPlayer = 2f;
 
+    public GameObject shotSound;
+
 
     private Health health;
     private NavMeshAgent agent;
@@ -22,6 +24,7 @@ public class Guard : MonoBehaviour
     private bool waiting;
 
     private Transform player;
+    private Health playerHealth;
 
     public float debug_angle;
     public float debug_dst;
@@ -43,6 +46,7 @@ public class Guard : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         player = GameObject.FindWithTag("Player").transform;
+        playerHealth = player.GetComponent<Health>();
 
         //waitTimer = Time.time + waitTime;
         waiting = true;
@@ -79,7 +83,7 @@ public class Guard : MonoBehaviour
 
         visible = false;
 
-        if(dst < visionDistance && angle < visionAngle)
+        if(dst < visionDistance && angle < visionAngle && !playerHealth.isDead)
         {
             //// obstruction detection
             Ray r = new Ray(transform.position, dir);
@@ -113,9 +117,14 @@ public class Guard : MonoBehaviour
         {
             anim.SetTrigger("Shoot");
 
+            GameObject s = Instantiate(shotSound, transform.position, Quaternion.identity);
+            Destroy(s, 5);
+
             shootTimer = Time.time + 1f;
             player.GetComponent<Health>().TakeDamage(100); //one shot for the moment
             playerDetected = false;
+            anim.SetBool("PlayerDetected", false);
+            agent.isStopped = false;
         }
 
         Vector3 currentMove = transform.position - prevPos;

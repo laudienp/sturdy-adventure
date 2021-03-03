@@ -8,13 +8,15 @@ public class PlayerHUD : MonoBehaviour
     public Text healthText;
     public Text ammoText;
 
+    public GameObject deathPanel;
+
     public Health playerHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         playerHealth.onHit += UpdateHealth;
-        playerHealth.onDie += ResetHealth;
+        playerHealth.onDie += Die;
     }
 
     // Update is called once per frame
@@ -28,9 +30,14 @@ public class PlayerHUD : MonoBehaviour
         healthText.text = "HP : " + playerHealth.health;
     }
 
-    void ResetHealth()
+    public void ResetHealth()
     {
         healthText.text = "HP : " + playerHealth.maxHealth;
+    }
+
+    void Die()
+    {
+        deathPanel.SetActive(true);
     }
 
     public void UpdateAmmo(int curr, int max)

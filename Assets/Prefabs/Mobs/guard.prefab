@@ -186,6 +186,8 @@ MonoBehaviour:
   visionAngle: 50
   visionDistance: 10
   timeToDetectPlayer: 1
+  shotSound: {fileID: 4289413736745374668, guid: 8ee78831aa6aa87478b0ed8f2a943af6,
+    type: 3}
   debug_angle: 0
   debug_dst: 0
   visible: 0
