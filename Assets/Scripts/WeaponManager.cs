@@ -55,4 +55,9 @@ public class WeaponManager : MonoBehaviour
     {
         weapons[weaponIndex].GetComponent<WeaponController>().Ammo(count);
     }
+
+    public void UnlockWeapon(int weaponIndex)
+    {
+        weaponUnlocked[weaponIndex] = true;
+    }
 }
