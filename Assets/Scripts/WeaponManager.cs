@@ -5,6 +5,8 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     public GameObject[] weapons;
+    public bool[] weaponUnlocked;
+
     public float swapDelay = 0.5f;
 
     public int selectedWeapon;
@@ -13,7 +15,8 @@ public class WeaponManager : MonoBehaviour
 
     private void Start()
     {
-        selectedWeapon = 0;
+        selectedWeapon = -1;
+        SwapWeapon(0);
     }
 
     private void Update()
@@ -37,10 +40,11 @@ public class WeaponManager : MonoBehaviour
 
     private void SwapWeapon(int selection)
     {
-        if (selectedWeapon == selection) // the weapon is already selected
+        if (selectedWeapon == selection || !weaponUnlocked[selection]) // the weapon is already selected
             return;
 
-        weapons[selectedWeapon].SetActive(false);
+        if(selectedWeapon > -1)
+            weapons[selectedWeapon].SetActive(false);
         selectedWeapon = selection;
         weapons[selectedWeapon].SetActive(true);
 
