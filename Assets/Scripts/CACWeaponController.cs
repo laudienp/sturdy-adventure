@@ -10,6 +10,8 @@ public class CACWeaponController : MonoBehaviour
 
     public Animator anim;
 
+    public GameObject swingSound;
+
     float lastAttack;
 
 
@@ -30,6 +32,8 @@ public class CACWeaponController : MonoBehaviour
             //anim
             anim.SetTrigger("Attack");
             //sound
+            GameObject g = Instantiate(swingSound, transform.position, Quaternion.identity);
+            Destroy(g, 2);
 
             lastAttack = Time.time + attackRate;
         }

@@ -49,6 +49,8 @@ MonoBehaviour:
   attackDamage: 50
   attackRange: 2
   anim: {fileID: 8123617883531728730}
+  swingSound: {fileID: 8942329284413705440, guid: dd7254db57b37634693bbb4284be9301,
+    type: 3}
 --- !u!95 &8123617883531728730
 Animator:
   serializedVersion: 3
@@ -542,7 +544,6 @@ MonoBehaviour:
   grounded: 0
   mouseSpeed: 1
   head: {fileID: 8123617884356162394}
-  colliders: {fileID: 8123617884418817300}
 --- !u!143 &8123617884843771002
 CharacterController:
   m_ObjectHideFlags: 0
@@ -575,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 100
+  isDead: 0
 --- !u!114 &8123617884843770997
 MonoBehaviour:
   m_ObjectHideFlags: 0
