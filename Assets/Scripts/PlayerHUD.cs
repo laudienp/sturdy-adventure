@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerHUD : MonoBehaviour
 {
     public Text healthText;
     public Text ammoText;
+    public Text checkpointText;
 
     public GameObject deathPanel;
 
@@ -43,5 +45,13 @@ public class PlayerHUD : MonoBehaviour
     public void UpdateAmmo(int curr, int max)
     {
         ammoText.text = "Ammo : " + curr + " / " + max;
+    }
+
+    public void CheckpointPassed()
+    {
+        DOTween.Sequence()
+            .Append(checkpointText.DOFade(1, 0.5f))
+            .Append(checkpointText.DOFade(1, 2f))
+            .Append(checkpointText.DOFade(0, 0.5f));
     }
 }

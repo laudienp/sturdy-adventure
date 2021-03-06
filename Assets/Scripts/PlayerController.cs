@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private GameCheckpoint lastCheckpoint;
 
+    private PlayerHUD hud;
+
     private float xview;
     private float yview;
 
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
+        hud = GetComponent<PlayerHUD>();
         health.onDie += Die;
 
         Cursor.visible = false;
@@ -113,9 +116,8 @@ public class PlayerController : MonoBehaviour
         if (lastCheckpoint != cp)
         {
             lastCheckpoint = cp;
-            Debug.Log("Checkpoint...");
+            hud.CheckpointPassed();
         }
-            
     }
 
     public void TeleportTo(Transform position)
