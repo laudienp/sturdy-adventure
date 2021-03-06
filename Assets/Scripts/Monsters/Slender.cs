@@ -15,6 +15,8 @@ public class Slender : MonoBehaviour
     public float chasingDuration;
     public float hidingDuration;
 
+    public GameObject[] footstepSounds;
+
     Animator anim;
     NavMeshAgent agent;
     Health player;
@@ -102,5 +104,13 @@ public class Slender : MonoBehaviour
 
         if (dst < 2f)
             player.TakeDamage(100);
+    }
+
+    public void PlayFootStepSound()
+    {
+        int index = Random.Range(0, footstepSounds.Length);
+
+        GameObject g = Instantiate(footstepSounds[index], transform.position, Quaternion.identity);
+        Destroy(g, 2);
     }
 }
