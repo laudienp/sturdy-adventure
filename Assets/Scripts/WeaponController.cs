@@ -14,9 +14,12 @@ public class WeaponController : MonoBehaviour
     public GameObject emptyShotSound;
 
     public GameObject hitWallEffect;
+    public GameObject bloodEffect;
 
     public Animator anim;
     public PlayerHUD hud;
+
+    public ParticleSystem muzzle;
 
     float lastShot;
 
@@ -46,7 +49,11 @@ public class WeaponController : MonoBehaviour
                 if (Physics.Raycast(center, out RaycastHit hit, 1000))
                 {
                     if (hit.collider.tag.Equals("Monster"))
+                    {
                         hit.collider.GetComponent<Damagable>().TakeDamage(bulletDamage);
+                        Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    }
+                        
                     else //hit a wall
                     {
                         Instantiate(hitWallEffect, hit.point, Quaternion.LookRotation(hit.normal));
@@ -54,6 +61,8 @@ public class WeaponController : MonoBehaviour
                 }
 
                 anim.SetTrigger("Shoot");
+
+                muzzle.Play();
 
                 //sound
                 GameObject g = Instantiate(shotSound, transform.position, Quaternion.identity);

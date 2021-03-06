@@ -8,23 +8,28 @@ public class MonsterRunner : MonoBehaviour
     public float damage = 10;
     public float attackSpeed = 1;
 
-    public GameObject explosion;
-    public GameObject blood;
+    public float whilhemScreamChance = 0.1f;
+
+    public AudioClip deathSound;
+    public AudioClip[] hitSounds;
+    public AudioClip[] screamSounds;
+    public Vector2 screamDelay;
+    public bool screamOnSpawn;
 
     public GameObject hitbox;
 
     public bool chasePlayer = true;
 
-    public GameObject deathSound;
+    public GameObject whilhemScreamSound;
 
     private GameObject player;
 
     private NavMeshAgent agent;
 
     private float nextAttack;
+    private float screamTimer;
 
     private Health health;
-
     private Animator animator;
 
     // Start is called before the first frame update
@@ -41,6 +46,11 @@ public class MonsterRunner : MonoBehaviour
 
         health.onDie += Die;
         health.onHit += Hit;
+
+        screamTimer = Time.time + Random.Range(screamDelay.x, screamDelay.y);
+
+        if (screamOnSpawn)
+            screamTimer = 0;
     }
 
     // Update is called once per frame
@@ -59,13 +69,31 @@ public class MonsterRunner : MonoBehaviour
 
             nextAttack = Time.time + attackSpeed;
         }
+
+        //scream
+
+        if(Time.time > screamTimer)
+        {
+            int index = Random.Range(0, screamSounds.Length);
+
+            AudioSource.PlayClipAtPoint(screamSounds[index], transform.position, 1);
+
+            screamTimer = Time.time + Random.Range(screamDelay.x, screamDelay.y);
+        }
     }
 
     void Die()
     {
-        Instantiate(explosion, transform.position, Quaternion.identity);
-        GameObject s = Instantiate(deathSound, transform.position, Quaternion.identity);
-        Destroy(s, 5);
+        if(Random.value < whilhemScreamChance)
+        {
+            GameObject s = Instantiate(whilhemScreamSound, transform.position, Quaternion.identity);
+            Destroy(s, 5);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position, 1f);
+        }
+        
         animator.SetTrigger("Die");
         hitbox.SetActive(false);
         agent.isStopped = true;
@@ -75,6 +103,8 @@ public class MonsterRunner : MonoBehaviour
 
     void Hit()
     {
-        Instantiate(blood, transform.position +Vector3.up, Quaternion.identity);
+        int index = Random.Range(0, hitSounds.Length);
+
+        AudioSource.PlayClipAtPoint(hitSounds[index], transform.position, 1f);
     }
 }

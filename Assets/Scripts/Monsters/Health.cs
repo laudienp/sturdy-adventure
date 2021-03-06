@@ -15,8 +15,6 @@ public class Health : MonoBehaviour
 
 
 
-
-
     void Start()
     {
         health = maxHealth;
@@ -26,9 +24,6 @@ public class Health : MonoBehaviour
     {
         health -= dmg;
 
-        if (onHit != null)
-            onHit.Invoke();
-
         if (health <= 0)
         {
             isDead = true;
@@ -36,6 +31,11 @@ public class Health : MonoBehaviour
 
             if(onDie != null)
                 onDie.Invoke();
+        }
+        else
+        {
+            if (onHit != null)
+                onHit.Invoke();
         }
             
     }

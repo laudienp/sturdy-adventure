@@ -178,12 +178,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   attackSpeed: 2
-  explosion: {fileID: 5036080143059581791, guid: f7f9ad6d87b176644ad8f8e7566eeadf,
-    type: 3}
-  blood: {fileID: 3900263233531629664, guid: 8419505f9e2081a4390a15e33b2755aa, type: 3}
+  whilhemScreamChance: 0.1
+  deathSound: {fileID: 8300000, guid: 2d9308d0a199afe4591dace8b55e3a69, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: fe9ddfeb7b2415047b20e6ed21fadfd6, type: 3}
+  - {fileID: 8300000, guid: 2bd49f973fb03df4ebeee1c59dc762bf, type: 3}
+  screamSounds:
+  - {fileID: 8300000, guid: 3ac6e966f60cd124dabef4615d1b9db5, type: 3}
+  - {fileID: 8300000, guid: c5cb690d9a0fd2e499dd0f11b976c22e, type: 3}
+  - {fileID: 8300000, guid: f730d4420e4d61244836f643f01d7f50, type: 3}
+  screamDelay: {x: 1, y: 10}
+  screamOnSpawn: 0
   hitbox: {fileID: 4430363964982039286}
   chasePlayer: 1
-  deathSound: {fileID: 828660086172780485, guid: 01e78b62d61b6b443b2a1b20456a25db,
+  whilhemScreamSound: {fileID: 828660086172780485, guid: 01e78b62d61b6b443b2a1b20456a25db,
     type: 3}
 --- !u!114 &4430363965210273143
 MonoBehaviour:
@@ -199,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 100
+  isDead: 0
 --- !u!1001 &4430363965799808564
 PrefabInstance:
   m_ObjectHideFlags: 0

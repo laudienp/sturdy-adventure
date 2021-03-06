@@ -11,6 +11,7 @@ public class CACWeaponController : MonoBehaviour
     public Animator anim;
 
     public GameObject swingSound;
+    public GameObject bloodEffect;
 
     float lastAttack;
 
@@ -24,7 +25,11 @@ public class CACWeaponController : MonoBehaviour
             if(Physics.Raycast(center, out RaycastHit hit, attackRange))
             {
                 if (hit.collider.tag.Equals("Monster"))
+                {
                     hit.collider.GetComponent<Damagable>().TakeDamage(attackDamage);
+                    Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+                    
 
                 
             }

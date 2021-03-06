@@ -19,6 +19,7 @@ public class PlayerHUD : MonoBehaviour
     {
         playerHealth.onHit += UpdateHealth;
         playerHealth.onDie += Die;
+        playerHealth.onDie += UpdateHealth;
     }
 
     // Update is called once per frame
