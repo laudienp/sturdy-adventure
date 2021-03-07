@@ -11,6 +11,7 @@ public class Slender : MonoBehaviour
     public float runSpeed;
     public float walkSpeed;
     public float jumpSpeed;
+    public float jumpHitRange;
 
     public float chasingDuration;
     public float hidingDuration;
@@ -126,7 +127,7 @@ public class Slender : MonoBehaviour
     {
         float dst = Vector3.Distance(transform.position, player.transform.position);
 
-        if (dst < 2f)
+        if (dst < jumpHitRange)
             player.TakeDamage(100);
     }
 
