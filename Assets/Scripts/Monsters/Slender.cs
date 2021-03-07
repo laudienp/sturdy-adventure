@@ -23,13 +23,12 @@ public class Slender : MonoBehaviour
 
     Animator anim;
     NavMeshAgent agent;
-    Health player;
+    Health playerHealth;
+    Transform player;
     SkinnedMeshRenderer model;
 
     bool chase;
     bool hiding;
-
-    Transform target;
 
     float attackTimer;
     float chasingTimer;
@@ -39,7 +38,8 @@ public class Slender : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = player.GetComponent<Health>();
         model = GetComponentInChildren<SkinnedMeshRenderer>();
 
         chase = false;
@@ -57,29 +57,23 @@ public class Slender : MonoBehaviour
             model.enabled = true;
         }
 
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, detectionRange, transform.forward);
-
-        foreach (RaycastHit hit in hits)
+        if(Vector3.Distance(transform.position, player.position) < detectionRange)
         {
-            if (target == null && hit.transform.CompareTag("Player"))
-            {
-                chase = true;
-                target = hit.transform;
-                anim.SetFloat("Speed", 1);
-                agent.speed = runSpeed;
-                agent.isStopped = false;
-                chasingTimer = Time.time + chasingDuration;
-            }
+            chase = true;
+            anim.SetFloat("Speed", 1);
+            agent.speed = runSpeed;
+            agent.isStopped = false;
+            chasingTimer = Time.time + chasingDuration;
         }
         
 
 
         if (chase && attackTimer < Time.time)
         {
-            agent.SetDestination(target.position);
+            agent.SetDestination(player.position);
 
 
-            if (Vector3.Distance(transform.position, target.position) < attackRange && attackTimer < Time.time)
+            if (Vector3.Distance(transform.position, player.position) < attackRange && attackTimer < Time.time)
             {
                 anim.SetTrigger("Attack");
                 agent.speed = jumpSpeed;
@@ -91,7 +85,6 @@ public class Slender : MonoBehaviour
                 chase = false;
                 anim.SetFloat("Speed", 0);
                 hidingTimer = hidingDuration + Time.time;
-                target = null;
                 hiding = true;
                 agent.isStopped = true;
                 model.enabled = false;
@@ -107,9 +100,8 @@ public class Slender : MonoBehaviour
 
     public void RespawnSomewhereInTheForest()
     {
-        target = null;
         agent.isStopped = true;
-        Debug.Log("arrrgggg");
+        anim.SetFloat("Speed", 0);
         int index = Random.Range(0, spawnPoints.Length);
 
         Teleport(spawnPoints[index]);
@@ -119,16 +111,15 @@ public class Slender : MonoBehaviour
     {
 
         anim.SetLookAtWeight(1f, 0.2f, 0.8f, 0.9f);
-        if (target != null)
-            anim.SetLookAtPosition(target.position);
+        anim.SetLookAtPosition(player.position);
     }
 
     public void AttackAnimationEvent()
     {
-        float dst = Vector3.Distance(transform.position, player.transform.position);
+        float dst = Vector3.Distance(transform.position, playerHealth.transform.position);
 
         if (dst < jumpHitRange)
-            player.TakeDamage(100);
+            playerHealth.TakeDamage(100);
     }
 
     public void PlayFootStepSound()
