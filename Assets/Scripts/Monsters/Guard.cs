@@ -136,6 +136,7 @@ public class Guard : MonoBehaviour
 
     void Die()
     {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().GuardKilled();
         agent.isStopped = true;
         Destroy(gameObject);
     }

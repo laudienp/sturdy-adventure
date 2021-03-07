@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerInteraction : MonoBehaviour
 {
     public float interactionRange = 5f;
 
     public Text interactionText;
+
+    public Text blockedMessageText;
 
     void Update()
     {
@@ -19,13 +22,31 @@ public class PlayerInteraction : MonoBehaviour
             interactionText.text = interactible.interactionMessage;
 
             if(Input.GetKeyDown(KeyCode.E))
-                interactible.OnInteract.Invoke();
+            {
+                if (!interactible.blocked)
+                    interactible.OnInteract.Invoke();
+                else
+                {
+                    SayBlockedMessage(interactible.blockedMessage);
+                    interactible.OnInteractBlocked.Invoke();
+                }
+                    
+            }
+                
         }
         else
         {
             interactionText.text = "";
         }
+    }
 
-        
+    private void SayBlockedMessage(string msg)
+    {
+        blockedMessageText.text = msg;
+
+        DOTween.Sequence()
+            .Append(blockedMessageText.DOFade(1f, 0.5f))
+            .Append(blockedMessageText.DOFade(1f, 2f))
+            .Append(blockedMessageText.DOFade(0f, 0.5f));
     }
 }

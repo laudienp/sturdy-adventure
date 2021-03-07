@@ -6,9 +6,12 @@ using UnityEngine.Events;
 public class Interactible : MonoBehaviour
 {
     public string interactionMessage = "activer l'interrupteur";
+    public string blockedMessage = "cette porte est bloquée";
+    public bool blocked = false;
     public bool debug;
     
     public UnityEvent OnInteract;
+    public UnityEvent OnInteractBlocked;
 
     private void Start()
     {
