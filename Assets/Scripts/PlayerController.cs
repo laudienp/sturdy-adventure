@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        RenderSettings.fogDensity = 0.005f; //to avoid bug
     }
 
     public void SetRespawn(GameCheckpoint cp) // faire une notif sur l'UI
