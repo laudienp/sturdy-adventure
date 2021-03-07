@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -118,6 +119,15 @@ public class PlayerController : MonoBehaviour
             lastCheckpoint = cp;
             hud.CheckpointPassed();
         }
+    }
+
+
+    public void FadeTeleport(Transform position)
+    {
+        DOTween.Sequence()
+            .Append(hud.loadingFade.DOFade(1, 0.5f).OnComplete(() =>TeleportTo(position)))
+            .Append(hud.loadingFade.DOFade(1, 1f))
+            .Append(hud.loadingFade.DOFade(0, 0.5f));
     }
 
     public void TeleportTo(Transform position)

@@ -10,6 +10,8 @@ public class PlayerHUD : MonoBehaviour
     public Text ammoText;
     public Text checkpointText;
 
+    public Image loadingFade;
+
     public GameObject deathPanel;
 
     public Health playerHealth;
