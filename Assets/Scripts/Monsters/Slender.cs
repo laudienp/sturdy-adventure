@@ -18,11 +18,15 @@ public class Slender : MonoBehaviour
     public GameObject[] footstepSounds;
     public Transform[] spawnPoints;
 
+
+
     Animator anim;
     NavMeshAgent agent;
     Health player;
+    SkinnedMeshRenderer model;
 
     bool chase;
+    bool hiding;
 
     Transform target;
 
@@ -35,6 +39,7 @@ public class Slender : MonoBehaviour
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        model = GetComponentInChildren<SkinnedMeshRenderer>();
 
         chase = false;
     }
@@ -42,8 +47,14 @@ public class Slender : MonoBehaviour
     void Update()
     {
 
-        if (hidingTimer > Time.time)
+        if (hiding && hidingTimer > Time.time)
             return;
+        if(hiding && hidingTimer < Time.time)
+        {
+            RespawnSomewhereInTheForest();
+            hiding = false;
+            model.enabled = true;
+        }
 
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, detectionRange, transform.forward);
 
@@ -80,7 +91,9 @@ public class Slender : MonoBehaviour
                 anim.SetFloat("Speed", 0);
                 hidingTimer = hidingDuration + Time.time;
                 target = null;
+                hiding = true;
                 agent.isStopped = true;
+                model.enabled = false;
             }
             else
             {
@@ -93,6 +106,8 @@ public class Slender : MonoBehaviour
 
     public void RespawnSomewhereInTheForest()
     {
+        target = null;
+        agent.isStopped = true;
         Debug.Log("arrrgggg");
         int index = Random.Range(0, spawnPoints.Length);
 
