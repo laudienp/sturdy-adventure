@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6596715927455683086}
   m_Layer: 0
-  m_Name: house_pillar
+  m_Name: house_pillar_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6596715927455683086
 Transform:
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6874082118019591960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 150.25, y: 0, z: 57}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4340354900487125384}
@@ -49,7 +49,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4340354900487125384
 Transform:
@@ -135,6 +135,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 420df47cac8f0ce4abcd55aff59a296a, type: 3}
       propertyPath: m_Name
       value: fund_pillar
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 420df47cac8f0ce4abcd55aff59a296a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 420df47cac8f0ce4abcd55aff59a296a, type: 3}
       propertyPath: m_RootOrder
