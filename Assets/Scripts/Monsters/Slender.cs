@@ -16,6 +16,7 @@ public class Slender : MonoBehaviour
     public float hidingDuration;
 
     public GameObject[] footstepSounds;
+    public Transform[] spawnPoints;
 
     Animator anim;
     NavMeshAgent agent;
@@ -93,6 +94,9 @@ public class Slender : MonoBehaviour
     public void RespawnSomewhereInTheForest()
     {
         Debug.Log("arrrgggg");
+        int index = Random.Range(0, spawnPoints.Length);
+
+        Teleport(spawnPoints[index]);
     }
 
     void OnAnimatorIK()
@@ -117,5 +121,10 @@ public class Slender : MonoBehaviour
 
         GameObject g = Instantiate(footstepSounds[index], transform.position, Quaternion.identity);
         Destroy(g, 2);
+    }
+
+    private void Teleport(Transform point)
+    {
+        transform.position = point.position;
     }
 }
