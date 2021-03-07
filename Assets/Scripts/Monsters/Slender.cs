@@ -90,6 +90,11 @@ public class Slender : MonoBehaviour
         }
     }
 
+    public void RespawnSomewhereInTheForest()
+    {
+        Debug.Log("arrrgggg");
+    }
+
     void OnAnimatorIK()
     {
 

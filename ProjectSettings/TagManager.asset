@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - Interactible
+  - Slender
   layers:
   - Default
   - TransparentFX
