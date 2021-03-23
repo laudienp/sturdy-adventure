@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
         hud = GetComponent<PlayerHUD>();
         health.onDie += Die;
 
+        xview = transform.rotation.eulerAngles.y; //take the current object rotation
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
