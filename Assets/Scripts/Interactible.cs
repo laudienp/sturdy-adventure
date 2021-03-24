@@ -24,4 +24,9 @@ public class Interactible : MonoBehaviour
         Debug.Log("Interact!!!");
     }
 
+    public void BlockInteraction()
+    {
+        blocked = true;
+    }
+
 }
