@@ -30,9 +30,39 @@ public class GameManager : MonoBehaviour
     public int guardDeadCount = 0;
     public int activatedEngine = 0;
 
+    public GameObject pauseMenu;
+    public PlayerController pcontroller;
+
     public void Start()
     {
         SayObjectif(objectif1);
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && !pcontroller.IsDead())
+        {
+            if (pauseMenu.activeInHierarchy)
+                CloseMenu();
+            else
+                OpenMenu();
+        }
+    }
+
+    public void CloseMenu()
+    {
+        pauseMenu.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        pcontroller.freezeControl = false;
+    }
+
+    public void OpenMenu()
+    {
+        pauseMenu.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        pcontroller.freezeControl = true;
     }
 
     public void CheckLibDoor()
@@ -116,6 +146,16 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         quitGame.SetActive(true);
+    }
+
+    public void SetQwerty()
+    {
+        pcontroller.isQwerty = true;
+    }
+
+    public void SetAzerty()
+    {
+        pcontroller.isQwerty = false;
     }
 
     public void QuitGame()

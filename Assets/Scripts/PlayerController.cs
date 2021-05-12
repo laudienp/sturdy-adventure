@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform head;
 
+    public bool isQwerty = true;
+
     private CharacterController controller;
 
     private GameCheckpoint lastCheckpoint;
@@ -30,7 +32,10 @@ public class PlayerController : MonoBehaviour
 
     Health health;
 
-    private bool freezeControl;
+    public bool freezeControl;
+
+    public GameObject menuPanel;
+    private bool dead;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +59,12 @@ public class PlayerController : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
+
+        if(isQwerty)
+        {
+            x = Input.GetAxis("HorizontalQ");
+            y = Input.GetAxis("VerticalQ");
+        }
 
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
@@ -91,7 +102,10 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
+        dead = true;
         freezeControl = true;
+
+        menuPanel.SetActive(false);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -99,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
     public void Respawn()
     {
+        dead = false;
         controller.enabled = false;
 
         if (lastCheckpoint)
@@ -139,5 +154,10 @@ public class PlayerController : MonoBehaviour
         transform.position = position.position;
         xview = position.rotation.eulerAngles.y; // rotate player to spawn forward
         controller.enabled = true;
+    }
+
+    public bool IsDead()
+    {
+        return dead;
     }
 }
