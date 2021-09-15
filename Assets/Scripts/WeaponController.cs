@@ -28,21 +28,24 @@ public class WeaponController : MonoBehaviour
 
     public bool reloading;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private InputMaster input;
 
+    private void Awake()
+    {
+        input = new InputMaster();
+        input.Player.Fire.performed += ctx => Fire();
+        input.Player.Reload.performed += ctx => Reload();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetMouseButton(0) && lastShot < Time.time && !reloading)
-        {
-            //Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.LookRotation(projectileSpawnPoint.forward));
-            //faire un raycast
+    private void OnEnable() => input.Enable();
 
-            if(currentCharger > 0)
+    private void OnDisable() => input.Disable();
+
+    private void Fire()
+    {
+        if (lastShot < Time.time && !reloading)
+        {
+            if (currentCharger > 0)
             {
                 Ray center = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
 
@@ -53,7 +56,6 @@ public class WeaponController : MonoBehaviour
                         hit.collider.GetComponent<Damagable>().TakeDamage(bulletDamage);
                         Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
                     }
-                        
                     else //hit a wall
                     {
                         Instantiate(hitWallEffect, hit.point, Quaternion.LookRotation(hit.normal));
@@ -78,16 +80,16 @@ public class WeaponController : MonoBehaviour
                 Destroy(g, 5);
             }
 
-            
-
             lastShot = Time.time + firerate;
         }
+    }
 
-        if(Input.GetKeyDown(KeyCode.R) && ammo > 0 && currentCharger != ammoPerCharger)
+    private void Reload()
+    {
+        if (ammo > 0 && currentCharger != ammoPerCharger)
         {
             anim.SetTrigger("Reload");
             reloading = true;
-            
         }
     }
 

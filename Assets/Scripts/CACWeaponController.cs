@@ -15,23 +15,31 @@ public class CACWeaponController : MonoBehaviour
 
     float lastAttack;
 
+    private InputMaster input;
 
-    private void Update()
+    private void Awake()
     {
-        if(Input.GetMouseButtonDown(0) && lastAttack < Time.time)
+        input = new InputMaster();
+        input.Player.Fire.performed += ctx => Attack();
+    }
+
+    private void OnEnable() => input.Enable();
+
+    private void OnDisable() => input.Disable();
+
+    private void Attack()
+    {
+        if (lastAttack < Time.time)
         {
             Ray center = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
 
-            if(Physics.Raycast(center, out RaycastHit hit, attackRange))
+            if (Physics.Raycast(center, out RaycastHit hit, attackRange))
             {
                 if (hit.collider.tag.Equals("Monster"))
                 {
                     hit.collider.GetComponent<Damagable>().TakeDamage(attackDamage);
                     Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 }
-                    
-
-                
             }
 
             //anim

@@ -13,33 +13,32 @@ public class WeaponManager : MonoBehaviour
 
     private float swapTimer;
 
+    private InputMaster input;
+
+    private void Awake()
+    {
+        input = new InputMaster();
+
+        input.Player.Weapon1.performed += ctx => SwapWeapon(0);
+        input.Player.Weapon2.performed += ctx => SwapWeapon(1);
+        input.Player.ScrollWeapon.performed += ctx => ScrollWeapon();
+    }
+
+    private void OnEnable() => input.Enable();
+
+    private void OnDisable() => input.Disable();
+
     private void Start()
     {
         selectedWeapon = -1;
         SwapWeapon(0);
     }
 
-    private void Update()
-    {
-        if(Time.time > swapTimer)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                SwapWeapon(0);
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-                SwapWeapon(1);
-
-
-            //with scrollwheel
-            float scroll = Input.mouseScrollDelta.y;
-            if(scroll > 0 && selectedWeapon < weapons.Length-1)
-                SwapWeapon(selectedWeapon+1);
-            else if(scroll < 0 && selectedWeapon > 0)
-                SwapWeapon(selectedWeapon-1);
-        }
-    }
-
     private void SwapWeapon(int selection)
     {
+        if (Time.time < swapTimer) // not ready to swap
+            return;
+
         if (selectedWeapon == selection || !weaponUnlocked[selection]) // the weapon is already selected
             return;
 
@@ -49,6 +48,16 @@ public class WeaponManager : MonoBehaviour
         weapons[selectedWeapon].SetActive(true);
 
         swapTimer = Time.time + swapDelay;
+    }
+
+    private void ScrollWeapon()
+    {
+        float scroll = input.Player.ScrollWeapon.ReadValue<float>();
+
+        if (scroll > 0 && selectedWeapon < weapons.Length - 1)
+            SwapWeapon(selectedWeapon + 1);
+        else if (scroll < 0 && selectedWeapon > 0)
+            SwapWeapon(selectedWeapon - 1);
     }
 
     public void TakeAmmo(int count, int weaponIndex)
