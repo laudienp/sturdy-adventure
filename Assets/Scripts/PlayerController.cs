@@ -37,6 +37,18 @@ public class PlayerController : MonoBehaviour
     public GameObject menuPanel;
     private bool dead;
 
+    private InputMaster input;
+
+    private void Awake()
+    {
+        input = new InputMaster();
+        input.Player.Jump.performed += ctx => Jump();
+    }
+
+    private void OnEnable() => input.Enable();
+
+    private void OnDisable() => input.Disable();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,17 +69,11 @@ public class PlayerController : MonoBehaviour
         if (freezeControl)
             return;
 
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float x = input.Player.Movement.ReadValue<Vector2>().x;
+        float y = input.Player.Movement.ReadValue<Vector2>().y;
 
-        if(isQwerty)
-        {
-            x = Input.GetAxis("HorizontalQ");
-            y = Input.GetAxis("VerticalQ");
-        }
-
-        float mx = Input.GetAxis("Mouse X");
-        float my = Input.GetAxis("Mouse Y");
+        float mx = input.Player.Camera.ReadValue<Vector2>().x;
+        float my = input.Player.Camera.ReadValue<Vector2>().y;
 
         //cam
         xview += mx * mouseSpeed;
@@ -79,13 +85,7 @@ public class PlayerController : MonoBehaviour
         //dep
         yvel += Time.deltaTime * gravity * gravityMultiplier;
 
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.RightControl)) && grounded)
-        {
-            yvel = Mathf.Sqrt(-2 * gravity * jumpHeight * gravityMultiplier);
-            grounded = false;
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) actualSpeed = runSpeed;
+        if (input.Player.Run.ReadValue<float>()>0) actualSpeed = runSpeed;
         else actualSpeed = walkSpeed;
 
         Vector3 movement = transform.right * x + transform.forward * y;
@@ -98,6 +98,15 @@ public class PlayerController : MonoBehaviour
             yvel = 0;
             grounded = true;
         }
+    }
+
+    private void Jump()
+    {
+        if (!grounded)
+            return;
+
+        yvel = Mathf.Sqrt(-2 * gravity * jumpHeight * gravityMultiplier);
+        grounded = false;
     }
 
     void Die()
