@@ -28,6 +28,9 @@ public class WeaponController : MonoBehaviour
 
     public bool reloading;
 
+    public GameObject cursor;
+    public GameObject ammoText;
+
     private InputMaster input;
 
     private void Awake()
@@ -37,9 +40,18 @@ public class WeaponController : MonoBehaviour
         input.Player.Reload.performed += ctx => Reload();
     }
 
-    private void OnEnable() => input.Enable();
+    private void OnEnable()
+    {
+        input.Enable();
+        cursor.SetActive(true);
+        ammoText.SetActive(true);
+    }
 
-    private void OnDisable() => input.Disable();
+    private void OnDisable()
+    {
+        input.Disable();
+        cursor.SetActive(false);
+    }
 
     private void Fire()
     {
