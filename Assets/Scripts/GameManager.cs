@@ -38,33 +38,6 @@ public class GameManager : MonoBehaviour
         SayObjectif(objectif1);
     }
 
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape) && !pcontroller.IsDead())
-        {
-            if (pauseMenu.activeInHierarchy)
-                CloseMenu();
-            else
-                OpenMenu();
-        }
-    }
-
-    public void CloseMenu()
-    {
-        pauseMenu.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        pcontroller.freezeControl = false;
-    }
-
-    public void OpenMenu()
-    {
-        pauseMenu.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        pcontroller.freezeControl = true;
-    }
-
     public void CheckLibDoor()
     {
         if(!objectif1Validated)
@@ -146,16 +119,6 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         quitGame.SetActive(true);
-    }
-
-    public void SetQwerty()
-    {
-        pcontroller.isQwerty = true;
-    }
-
-    public void SetAzerty()
-    {
-        pcontroller.isQwerty = false;
     }
 
     public void QuitGame()

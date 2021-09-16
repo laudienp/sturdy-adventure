@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
 
     public Transform head;
 
-    public bool isQwerty = true;
-
     private CharacterController controller;
 
     private GameCheckpoint lastCheckpoint;
