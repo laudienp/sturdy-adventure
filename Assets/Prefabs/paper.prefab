@@ -11,7 +11,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.42, y: 0.6, z: 0.144}
+  m_Size: {x: 0.6, y: 0.8, z: 0.2}
   m_Center: {x: -0.21000004, y: 0.30000004, z: 0.072}
 --- !u!114 &3332604534790308490
 MonoBehaviour:
@@ -26,6 +26,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionMessage: ramasser
+  blockedMessage: "cette porte est bloqu\xE9e"
+  blocked: 0
   debug: 0
   OnInteract:
     m_PersistentCalls:
@@ -52,6 +54,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnInteractBlocked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3332604534049693171
 GameObject:
   m_ObjectHideFlags: 0
