@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
     Health health;
 
     public bool freezeControl;
-
-    public GameObject menuPanel;
     private bool dead;
 
     private InputMaster input;
@@ -111,8 +109,6 @@ public class PlayerController : MonoBehaviour
     {
         dead = true;
         freezeControl = true;
-
-        menuPanel.SetActive(false);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
